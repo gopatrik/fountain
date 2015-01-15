@@ -1,0 +1,16 @@
+head
+	title Hex
+
+body
+	+main
+
+template(name="main")
+	+bg
+	+hexField
+
+template(name="bg")
+	.background(style="background-color: ##{hex};")
+
+template(name="hexField")
+	.hex-input-container
+		input(name="hex-field", value=val)

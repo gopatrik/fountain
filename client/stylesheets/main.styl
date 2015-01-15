@@ -1,0 +1,45 @@
+html, body
+	height 100%
+	
+
+body
+	min-height 100%
+
+
+.background
+	position: fixed
+	width 100vw
+	height 100vh
+	top 0
+	left 0
+	// z-index -1
+
+.hex-input-container
+	position absolute
+	bottom 0
+	width 100%
+	color white
+	font-size 10vw	
+	background rgba(black, 0.2)
+	border-top 2px solid rgba(black,0.1)
+	text-align center
+	vertical-align middle
+	
+	&:before
+		content "#"
+		font-family avenir
+		font-weight bold
+		vertical-align middle
+		display inline-block
+
+input[name=hex-field]
+	width 40vw
+	font-family avenir
+	vertical-align middle
+	display inline-block
+	text-align left
+	font-size 10vw
+	color white
+	background none
+	border none
+	outline none
