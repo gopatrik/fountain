@@ -8,6 +8,8 @@ body
 template(name="main")
 	+bg
 	+hexField
+	+sideNav
+	
 
 
 template(name="lupe")
@@ -16,6 +18,12 @@ template(name="lupe")
 template(name="bg")
 	.background(style="background-color: ##{hex};")
 		+lupe
+
+template(name="sideNav")
+	div.menu-toggle
+	if nav
+		section.side-nav.animation-target
+			nav
 
 
 template(name="hexField")

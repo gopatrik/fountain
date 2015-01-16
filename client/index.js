@@ -5,6 +5,10 @@ Meteor.startup(function () {
 	setBg(100, 100);
 });
 
+var windowHeight = function(){
+	return $(document).height();
+}
+
 var setBg = function(x, y){
 	Session.set("position", {x:x, y:y});
 
@@ -30,7 +34,13 @@ function touchMove(event) {
     event.preventDefault();
     var curX = event.targetTouches[0].pageX;
     var curY = event.targetTouches[0].pageY;
-    setBg(curX, curY);
+
+    var vh = windowHeight();
+
+    if(curY < windowHeight() * 0.9){
+    	setBg(curX, curY);
+    }
+
 };
 
 Template.lupe.helpers({
@@ -90,8 +100,17 @@ Template.bg.helpers({
 	}
 });
 
+Template.sideNav.events({
+	'click .menu-toggle': function () {
+		Session.set("showNav", !Session.get("showNav"));
+	}
+});
 
-
+Template.sideNav.helpers({
+	nav: function () {
+		return Session.get("showNav");
+	}
+});
 
 Template.bg.events({
 	'mousemove .background': function (e,t) {
