@@ -10,10 +10,7 @@ body
 
 
 .background
-	// width bgWidth
-	// height bgHeight
 	position fixed
-	// z-index -1
 	width 100vw
 	height 100vh
 
@@ -64,16 +61,34 @@ input[name=hex-field]
 .menu-toggle
 	height: 5vh;
 	width: 5vh;
-	background: white;
+	// background: white;
 	position:absolute;
-	left: 2vh;
+	left: 3vh;
 	bottom:2vh;
 	z-index:100;
+	.line
+		border-radius .2vh
+		height .5vh
+		background: white;
+		&:not(:nth-child(1))
+			margin-top 1vh
+		
 
 .side-nav
 	position fixed
 	left 0
 	height 100vh
-	background rgba(#232830,0.9)
+	background rgba(#232830,0.95)
 	z-index 11
-	width 40vw
+	width 45vw
+	overflow-y scroll
+	
+	.big-item
+		height 20vh
+		border-bottom 1px solid black
+		background white
+		
+	.text-item
+		padding 1vh
+		font-size 3vh
+		color rgba(white,0.9)

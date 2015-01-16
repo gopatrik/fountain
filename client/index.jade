@@ -9,8 +9,6 @@ template(name="main")
 	+bg
 	+hexField
 	+sideNav
-	
-
 
 template(name="lupe")
 	.lupe(style="top:#{pos.y}px; left:#{pos.x}px;")
@@ -22,15 +20,19 @@ template(name="bg")
 template(name="sideNav")
 	section.navigation
 		div.menu-toggle
+			.line
+			.line
+			.line
 		if nav
 			+menu
 
 template(name="menu")
 	section.side-nav.slide-in
-		nav
-
-
+		ul.no-style-type.np
+			li.big-item
+			li.text-item
+				span hello
 
 template(name="hexField")
-	.hex-input-container
+	.hex-input-container.noselect 
 		input(name="hex-field", value=val)

@@ -49,7 +49,7 @@ function touchMove(event) {
 
     	if(Session.get("showNav")){
     		if(curX < navWidth()){
-				return;
+				return true;
     		}else{
     			Session.set("showNav",false);
     		}
@@ -129,8 +129,6 @@ Template.sideNav.helpers({
 		
 	}
 });
-
-var rendered = false;
 
 Template.menu.rendered = function () {
 	this.firstNode.parentNode._uihooks = {
