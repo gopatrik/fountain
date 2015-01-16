@@ -28,10 +28,27 @@ template(name="sideNav")
 
 template(name="menu")
 	section.side-nav.slide-in
-		ul.no-style-type.np
-			li.big-item
-			li.text-item
-				span hello
+		section.relative
+			.title
+			ul.no-style-type.np
+				//- li.big-item
+				li.text-item
+					i.fa.fa-square-o
+					span Polygons
+				li.text-item
+					i.fa.fa-check-square-o
+					span hello
+
+			ul.no-style-type.np(style="position:fixed; bottom:8vh;")
+				li.text-item
+					i.fa.fa-envelope
+					span Contact
+
+				li.text-item
+					i.fa.fa-twitter
+					span @gopatrik
+
+
 
 template(name="hexField")
 	.hex-input-container.noselect 
