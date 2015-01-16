@@ -1,0 +1,322 @@
+// @import 'jeet/index'
+// @import 'res/vars'
+
+
+subtle = rgba(white, 0.7)
+modal = #C25555
+
+.full-height
+	height 100%
+	min-height 100%
+	
+
+
+// font sizes
+.small
+	line-height 13px
+	font-size 11px
+
+.smaller
+	font-size 10px
+	line-height 13px
+
+.mediumRare
+	font-size 15px
+
+.medium
+	font-size 20px
+	
+.noDisplay
+	display none
+
+.big, .large
+	font-size 28px
+
+.larger
+	font-size 50px
+
+.thin
+	font-weight 100
+
+.mediumHuge
+	font-size 40px
+	line-height @font-size
+	
+
+
+.huge
+	font-size 90px
+	line-height @font-size
+
+// weights
+.light
+	font-weight 100
+
+.normal
+	font-weight normal
+
+.bold
+	font-weight bold
+
+// text-alignment
+.left
+	text-align left
+
+.center
+	text-align center
+	
+.visible 
+	visibility visible
+
+.hidden 
+	visibility hidden
+
+
+// font colors
+.subtle
+	color subtle
+	
+.gray
+	color #d5d5d5
+.dark
+	color #424242
+
+.light
+	color #999999
+	
+.shadow
+	text-shadow: 2px 2px 0px rgba(black, 0.30);
+
+// metrics
+.nm
+	margin 0
+
+.np
+	padding 0
+
+.mb
+	margin-bottom 20px
+
+.mb-medium
+	margin-bottom 40px
+
+.mb-large
+	margin-bottom 70px
+
+
+
+.mbs
+	margin-bottom 10px
+.mt
+	margin-top 20px
+
+.mt-medium
+	margin-top 40px
+
+.mts
+	margin-top 10px
+
+.mt-large
+	margin-top 70px
+	
+.mt-max
+	margin-top 160px
+	
+.mb-max
+	margin-bottom 160px
+
+.pt
+	padding-top: 30px
+
+.padding
+	padding 10px 20px
+
+.fat-padding
+	padding 60px
+	
+	
+.normal-padding
+	padding 30px
+
+.small-wide-padding
+	// background yellow
+	padding 10px 20px
+	
+
+// positioning
+.fixed
+	position fixed
+
+.absolute
+	position absolute
+
+.relative
+	position relative
+
+.absoluteBottomCenter
+	bottom 20px
+	left 50%
+
+.absoluteTopCenter
+	position absolute
+	top 20px
+	left 50%
+	// bottom 10px
+	// right 20px
+	// text-align right
+	// position absolute
+    // left 0px
+    // right 0px
+    // margin-left auto
+    // margin-right auto
+    // text-align center
+
+.centerMeFromAbsolute
+	position relative
+	left -50%
+
+.absoluteBottomRight, .absoluteUpRight, .absoluteBottomLeft, .absoluteUpLeft, .absoluteTopCenter, .absoluteBottomCenter
+	position absolute
+	font-family avenir
+	font-size 30px
+	p
+		margin 0
+
+.absoluteBottomRight
+	bottom 10px
+	right 20px
+	text-align right
+
+.absoluteUpLeft
+	top 20px
+	left 20px
+	text-align left
+
+.absoluteUpRight
+	position absolute
+	top 20px
+	right 20px
+	text-align right
+
+.absoluteBottomLeft
+	position absolute
+	bottom 10px
+	left 20px
+	text-align left
+
+.discreteText
+	font-size 12px
+	color #d5d5d5
+
+.moreDiscreteText
+	font-size 12px
+	color #999999
+
+.high-z
+	z-index 400
+
+.no-style-type
+	list-style-type none
+	
+a.nolink
+	text-decoration none
+	&:hover
+		color white
+		text-decoration underline
+.underline
+	text-decoration underline
+	
+.pointer
+	cursor pointer
+
+.no-border
+	border none
+
+.white-border
+	padding 10px 20px
+	display inline-block
+	border 3px solid white
+	border-radius 5px
+
+.no-button
+	padding 0
+	border none
+	&:hover
+		// background rgba(black, 0.4)
+
+.narrow
+	center(narrowWidth)
+
+.sixtypercent
+	width 60%
+	margin-left auto
+	margin-right auto
+
+.half
+	col(1/2)
+	
+.span-half
+	span(1/2)
+
+.whole
+	col(1)
+
+.small-width
+	min-width 60px
+	text-align center
+
+.ml
+	margin-left 20px
+
+.inline-list
+	padding 0
+	list-style-type none
+	li
+		display inline-block
+	ul
+		padding 0
+
+.white
+	color white
+
+.white-bg
+	background white
+
+.center-block
+	display inline-block
+	text-align center
+	
+
+.inline
+	display inline-block
+
+.modal 
+	color modal
+
+.blackBackground
+	width 100%
+	background rgba(0,0,0,0.5)
+	
+.black
+	color rgba(0,0,0,0.9)
+
+.curly
+	font-family Pacifico
+	font-weight normal
+
+.sans
+	font-family fontSans
+
+.noselect 
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+.rounded
+	border-radius 5px
+	
+.right
+	text-align right
