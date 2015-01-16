@@ -20,10 +20,15 @@ template(name="bg")
 		+lupe
 
 template(name="sideNav")
-	div.menu-toggle
-	if nav
-		section.side-nav.animation-target
-			nav
+	section.navigation
+		div.menu-toggle
+		if nav
+			+menu
+
+template(name="menu")
+	section.side-nav.slide-in
+		nav
+
 
 
 template(name="hexField")

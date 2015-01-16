@@ -9,6 +9,14 @@ var windowHeight = function(){
 	return $(document).height();
 }
 
+var inputHeight = function(){
+	return $('.hex-input-container').height();
+}
+
+var navWidth = function () {
+	return $('.side-nav').width()
+}
+
 var setBg = function(x, y){
 	Session.set("position", {x:x, y:y});
 
@@ -37,7 +45,15 @@ function touchMove(event) {
 
     var vh = windowHeight();
 
-    if(curY < windowHeight() * 0.9){
+    if(curY < windowHeight() - inputHeight()){
+
+    	if(Session.get("showNav")){
+    		if(curX < navWidth()){
+				return;
+    		}else{
+    			Session.set("showNav",false);
+    		}
+    	}
     	setBg(curX, curY);
     }
 
@@ -66,7 +82,6 @@ var validHex = function (hex) {
 	  hex = str.charCodeAt(i).toString(16);
 	  result += ("000"+hex).slice(-4);
 	}
-	console.log(result);
 	return true;
 }
 
@@ -108,9 +123,30 @@ Template.sideNav.events({
 
 Template.sideNav.helpers({
 	nav: function () {
-		return Session.get("showNav");
+		var s = Session.get("showNav");
+		// todo animate out	
+		return s;
+		
 	}
 });
+
+var rendered = false;
+
+Template.menu.rendered = function () {
+	this.firstNode.parentNode._uihooks = {
+		removeElement: function(node) {
+			console.log("remove", node);
+
+			$(node).addClass('slide-out');
+
+			setTimeout(function () {
+		    	$(node).remove();
+			},200);
+		}
+	};
+
+};
+
 
 Template.bg.events({
 	'mousemove .background': function (e,t) {
