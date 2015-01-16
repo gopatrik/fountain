@@ -115,20 +115,49 @@ Template.bg.helpers({
 	}
 });
 
+Session.setDefault("menuItems", {
+	polygon:{checked:false, text:"Polygons", itemClass:"polygons-option"}
+});
+
 Template.sideNav.events({
 	'click .menu-toggle': function () {
 		Session.set("showNav", !Session.get("showNav"));
 	}
 });
-
 Template.sideNav.helpers({
 	nav: function () {
-		var s = Session.get("showNav");
-		// todo animate out	
-		return s;
-		
+		return Session.get("showNav");
 	}
 });
+
+Template.menu.helpers({
+	menuItems: function () {
+		var menu = [];
+		var m = Session.get("menuItems");
+		// hash to array
+		_.each(m, function (a,b) {
+			menu.push(a);
+		});
+		console.log(menu)
+		return menu;
+	}
+});
+
+Template.menu.events({
+	'click .polygons-option':function (e) {
+		var m = Session.get("menuItems");
+
+		m.polygon.checked = !m.polygon.checked;
+
+		Session.set("menuItems", m);
+
+	}
+});
+
+
+
+
+
 
 Template.menu.rendered = function () {
 	this.firstNode.parentNode._uihooks = {
@@ -144,6 +173,8 @@ Template.menu.rendered = function () {
 	};
 
 };
+
+
 
 
 Template.bg.events({

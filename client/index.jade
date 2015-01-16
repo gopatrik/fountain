@@ -32,12 +32,13 @@ template(name="menu")
 			.title
 			ul.no-style-type.np
 				//- li.big-item
-				li.text-item
-					i.fa.fa-square-o
-					span Polygons
-				li.text-item
-					i.fa.fa-check-square-o
-					span hello
+				each menuItems
+					li.text-item(class=itemClass)
+						unless checked
+							i.fa.fa-square-o
+						else
+							i.fa.fa-check-square-o
+						span= text
 
 			ul.no-style-type.np(style="position:fixed; bottom:8vh;")
 				li.text-item
