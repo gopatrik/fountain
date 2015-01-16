@@ -1,5 +1,6 @@
 head
-	title Hex
+	title Hexbg
+	meta(name="viewport", content="width=device-width, user-scalable=no, initial-scale=0.5, maximum-scale=0.5")
 
 body
 	+main
@@ -8,8 +9,14 @@ template(name="main")
 	+bg
 	+hexField
 
+
+template(name="lupe")
+	.lupe(style="top:#{pos.y}px; left:#{pos.x}px;")
+
 template(name="bg")
 	.background(style="background-color: ##{hex};")
+		+lupe
+
 
 template(name="hexField")
 	.hex-input-container

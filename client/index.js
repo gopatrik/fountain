@@ -1,6 +1,13 @@
-Session.setDefault("background", "78972B");
+// Session.setDefault("background", "78972B");
+// Session.setDefault("position", {x:100, y:100});
+
+Meteor.startup(function () {
+	setBg(100, 100);
+});
 
 var setBg = function(x, y){
+	Session.set("position", {x:x, y:y});
+
 	x /=  $(document).width();
 	y /= $(document).height();
 
@@ -8,7 +15,13 @@ var setBg = function(x, y){
 		Math.round((1-x)*255).toString(16),
 		Math.round(y*255).toString(16),
 		Math.round(x*255).toString(16),
-	].join('');
+	];
+
+	rgb = _.map(rgb, function (x) {
+		return (x.length == 1) ? "0"+x : x;
+	});
+
+	rgb = rgb.join('');
 
 	Session.set("background", rgb);
 };
@@ -20,10 +33,16 @@ function touchMove(event) {
     setBg(curX, curY);
 };
 
+Template.lupe.helpers({
+	pos: function () {
+		return Session.get("position");
+	}
+});
+
 Template.bg.rendered = function () {
 // 	$('.background').draggable();
 
-	// document.addEventListener("touchstart", touchStart, false);
+	document.addEventListener("touchstart", touchMove, false);
 	document.addEventListener("touchmove", touchMove, false);
 	// document.addEventListener("touchend", touchEnd, false);
 	// document.addEventListener("touchcancel", touchCancel, false);
