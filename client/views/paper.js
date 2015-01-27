@@ -1,19 +1,15 @@
 
 var windowHeight = function(){
 	return $(document).height();
-}
+};
 
 var inputHeight = function(){
 	return $('.hex-input-container').height();
-}
+};
 
 var navWidth = function () {
 	return $('.side-nav').width();
-}
-
-Meteor.startup(function () {
-	console.log("reload!");
-});
+};
 
 function colorSelectTouchHandler(event) {
     event.preventDefault();
@@ -36,7 +32,6 @@ function colorSelectTouchHandler(event) {
 
 };
 
-
 var figure;
 var lastDraggedPosition;
 function polygonDragTouchHandler(event) {
@@ -56,16 +51,11 @@ function polygonDragTouchHandler(event) {
     		}
     	};
 
-
     	lastDraggedPosition = {x:curX, y:curY};
-    	console.log("DRAGGING");
-    	console.log("posdrag, ", lastDraggedPosition.x, lastDraggedPosition.y);
 
     	if(!figure){
     		figure = polygon(Snap('.background'));
     	};
-
-
 
     	figure.dragLine(curX, curY);
     };
@@ -111,7 +101,6 @@ Template.paper.events({
 		setBg(x, y);
 	}
 });
-
 
 Template.paper.rendered = function () {
 	// Meteor.TouchControllers.colorSelector();
@@ -159,7 +148,6 @@ var polygon = function (paper){
 		r: 10
 	};
 
-
 	// private
 	var pushNode = function (node) {
 		if(lastNode){
@@ -179,7 +167,6 @@ var polygon = function (paper){
 
 	// public
 	var addNode = function(x,y){
-		console.log("click")
 		if(lastNode){
 			var l = drawLine(lastNode.attr('cx'), lastNode.attr('cy'), x, y);
 		}
@@ -189,7 +176,6 @@ var polygon = function (paper){
 	};
 
 	var dragLine = function (x,y) {
-		console.log("drag")
 		if(!lastNode){
 			return;
 		};
@@ -217,10 +203,7 @@ var polygon = function (paper){
 		if(!draggingLine && !draggingNode){
 			addNode(x, y);
 			return;
-		}
-		// dragLine(x, y);
-
-		// drawLine(lastNode.attr('cx'), lastNode.attr('cy'), draggingLine.attr('x2'),draggingLine.attr('y2'));
+		};
 
 		lines.push(draggingLine);
 
