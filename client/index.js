@@ -41,7 +41,8 @@ Template.hexField.events({
 
 
 Session.setDefault("menuItems", {
-	polygon:{checked:false, text:"Polygons", itemClass:"polygons-option"}
+	polygon:{checked:false, text:"Polygons", itemClass:"polygons-option"},
+	clear:{checked:false, text:"Clear", itemClass:"clear-option"}
 });
 
 Template.sideNav.events({
@@ -75,6 +76,14 @@ Template.menu.events({
 		m.polygon.checked = !m.polygon.checked;
 
 		Session.set("menuItems", m);
+
+	},
+	'click .clear-option':function (e) {
+		var m = Session.get("menuItems");
+
+		m.clear.checked = !m.clear.checked;
+
+		Meteor.figure.clear();
 
 	}
 });

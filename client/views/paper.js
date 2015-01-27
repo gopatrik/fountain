@@ -32,7 +32,7 @@ function colorSelectTouchHandler(event) {
 
 };
 
-var figure;
+Meteor.figure;
 var lastDraggedPosition;
 function polygonDragTouchHandler(event) {
     event.preventDefault();
@@ -53,18 +53,18 @@ function polygonDragTouchHandler(event) {
 
     	lastDraggedPosition = {x:curX, y:curY};
 
-    	if(!figure){
-    		figure = polygon(Snap('.background'));
+    	if(!Meteor.figure){
+    		Meteor.figure = polygon(Snap('.background'));
     	};
 
-    	figure.dragLine(curX, curY);
+    	Meteor.figure.dragLine(curX, curY);
     };
 
 };
 
 function polygonReleaseDragHandler(event) {
 	if(lastDraggedPosition){
-		figure.releaseDrag(lastDraggedPosition.x, lastDraggedPosition.y);
+		Meteor.figure.releaseDrag(lastDraggedPosition.x, lastDraggedPosition.y);
 	}
 };
 
@@ -72,11 +72,14 @@ Meteor.TouchControllers = {
 	colorSelector: function () {
 		document.addEventListener("touchstart", colorSelectTouchHandler, false);
 		document.addEventListener("touchmove", colorSelectTouchHandler, false);
+		document.addEventListener("touchend", undefined, false);
+		document.addEventListener("touchcancel", undefined, false);
 	},
 	polygonDrawer: function () {
 		document.addEventListener("touchstart", polygonDragTouchHandler, false);
 		document.addEventListener("touchmove", polygonDragTouchHandler, false);
 		document.addEventListener("touchend", polygonReleaseDragHandler, false);
+		document.addEventListener("touchcancel", undefined, false);
 	},
 	noController: function () {
 		document.addEventListener("touchstart", undefined, false);
@@ -145,17 +148,18 @@ var polygon = function (paper){
 
 	var nodeStyle = {
 		fill: 'white',
-		r: 10
+		r: 14
 	};
 
 	// private
 	var pushNode = function (node) {
 		if(lastNode){
-			lastNode.attr('fill','white');
+			lastNode.attr('stroke','none');
 		}
 		lastNode = node;
 		nodes.push(node);
-		lastNode.attr('fill','red');
+		lastNode.attr('stroke','red');
+		lastNode.attr('stroke-width','4');
 	};
 
 	var drawLine = function (x1,y1,x2,y2) {
@@ -213,9 +217,19 @@ var polygon = function (paper){
 		draggingNode = undefined;
 	};
 
+	var clear = function () {
+		paper.clear();
+		nodes = [];
+		lines = [];
+		draggingLine = undefined;
+		draggingNode = undefined;
+		lastNode = undefined;
+	};
+
 	return Object.freeze({
 		addNode:addNode,
 		dragLine:dragLine,
-		releaseDrag:releaseDrag
+		releaseDrag:releaseDrag,
+		clear:clear
 	});
 };
