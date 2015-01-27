@@ -4,18 +4,24 @@ head
 
 body
 	+main
+	//- +svgTest
+
+template(name="svgTest")
+	<svg version="1.1" id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="500px" height="500px" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve"> <circle fill="#D1E9D1" stroke="#000000" stroke-miterlimit="10" cx="137.383" cy="123.889" r="112.617"/> <circle fill="#DDDAD3" stroke="#000000" stroke-miterlimit="10" cx="212.753" cy="199.259" r="67.247"/> </svg>
+	<img id="fromcanvas" alt="svg butterfly from canvas.toDataURLﬂ()" />
+	button convert
 
 template(name="main")
-	+bg
+	+paper
 	+hexField
 	+sideNav
 
 template(name="lupe")
 	.lupe(style="top:#{pos.y}px; left:#{pos.x}px;")
 
-template(name="bg")
-	.background(style="background-color: ##{hex};")
-		+lupe
+template(name="paper")
+	svg.background(style="background-color: ##{hex};")
+	+lupe
 
 template(name="sideNav")
 	section.navigation
