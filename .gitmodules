@@ -1,3 +1,0 @@
-[submodule "packages/svg-drawing-tools/svg-js-pen-tool"]
-	path = packages/svg-drawing-tools/svg-js-pen-tool
-	url = git@github.com:gopatrik/svg-js-pen-tool.git
