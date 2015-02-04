@@ -107,7 +107,12 @@ Template.paper.events({
 
 Template.paper.rendered = function () {
 	// Meteor.TouchControllers.colorSelector();
-	Meteor.TouchControllers.polygonDrawer();
+	// Meteor.TouchControllers.polygonDrawer();
+	var paper = Snap('.paper');
+
+	var _penTool = Meteor.Tool.PenTool(paper);
+	_penTool.activate();
+
 };
 
 var setBg = function(x, y){

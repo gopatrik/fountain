@@ -20,8 +20,9 @@ template(name="lupe")
 	.lupe(style="top:#{pos.y}px; left:#{pos.x}px;")
 
 template(name="paper")
-	svg.background(style="background-color: ##{hex};")
-	+lupe
+	svg.background.paper(style="background-color: ##{hex};")
+	if lupe
+		+lupe
 
 template(name="sideNav")
 	section.navigation
