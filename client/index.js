@@ -67,17 +67,23 @@ Template.menu.helpers({
 	}
 });
 
+function unCheckAll(menu){
+	menu = _.map(menu, function (a,b) {
+		a.checked = false;
+		return a;
+	});
+
+	return menu;
+
+};
+
 Template.menu.events({
 	'click .pentool-option':function (e) {
 		var m = Session.get("menuItems");
-		// _.each(m, function (a,b) {
-		// 	if(a != m.pentool){
-		// 		a.
-		// 	}
-			
-		// });
 
-		m.pentool.checked = !m.pentool.checked;
+		var state = !m.pentool.checked;
+		unCheckAll(m);
+		m.pentool.checked = state;
 
 		if(m.pentool.checked){
 			Meteor.ToolBox.setTool(Meteor.ToolBox.tools.pentool);
@@ -91,15 +97,15 @@ Template.menu.events({
 	},
 	'click .color-select-option':function (e) {
 		var m = Session.get("menuItems");
-		m.colorSelect.checked = !m.colorSelect.checked;
+		var state = !m.colorSelect.checked;
+		unCheckAll(m);
+		m.colorSelect.checked = state;
 		
 		if(m.colorSelect.checked){
 			Meteor.ToolBox.setTool(Meteor.ToolBox.tools.colorSelector);
 		}else{
 			Meteor.ToolBox.unsetTool();
 		};
-
-		console.log("color")
 
 		Session.set("menuItems", m);
 
@@ -110,7 +116,6 @@ Template.menu.events({
 Template.menu.rendered = function () {
 	this.firstNode.parentNode._uihooks = {
 		removeElement: function(node) {
-			console.log("remove", node);
 
 			$(node).addClass('slide-out');
 

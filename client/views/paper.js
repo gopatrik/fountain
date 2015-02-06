@@ -13,8 +13,10 @@ Meteor.startup(function () {
 			tool.activate();
 		},
 		unsetTool: function () {
-			Meteor.ToolBox.currentTool.deactivate();
-			Meteor.ToolBox.currentTool = undefined;
+			if(Meteor.ToolBox.currentTool){
+				Meteor.ToolBox.currentTool.deactivate();
+				Meteor.ToolBox.currentTool = undefined;
+			};
 		},
 		tools: {
 			pentool: Meteor.Tool.PenTool(paper),
