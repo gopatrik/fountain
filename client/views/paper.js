@@ -1,121 +1,5 @@
-
-var windowHeight = function(){
-	return $(document).height();
-};
-
-var inputHeight = function(){
-	return $('.hex-input-container').height();
-};
-
-var navWidth = function () {
-	return $('.side-nav').width();
-};
-
-function colorSelectTouchHandler(event) {
-    event.preventDefault();
-    var curX = event.targetTouches[0].pageX;
-    var curY = event.targetTouches[0].pageY;
-
-    var vh = windowHeight();
-
-    if(curY < windowHeight() - inputHeight()){
-
-    	if(Session.get("showNav")){
-    		if(curX < navWidth()){
-				return true; // regular click when in nav
-    		}else{
-    			Session.set("showNav",false);
-    		}
-    	}
-    	setBg(curX, curY);
-    }
-
-};
-
-Meteor.figure;
-var lastDraggedPosition;
-function polygonDragTouchHandler(event) {
-    event.preventDefault();
-    var curX = event.targetTouches[0].pageX;
-    var curY = event.targetTouches[0].pageY;
-
-    var vh = windowHeight();
-
-    if(curY < windowHeight() - inputHeight()){
-
-    	if(Session.get("showNav")){
-    		if(curX < navWidth()){
-				return true; // regular click when in nav
-    		}else{
-    			Session.set("showNav",false);
-    		}
-    	};
-
-    	lastDraggedPosition = {x:curX, y:curY};
-
-    	if(!Meteor.figure){
-    		Meteor.figure = polygon(Snap('.background'));
-    	};
-
-    	Meteor.figure.dragLine(curX, curY);
-    };
-
-};
-
-function polygonReleaseDragHandler(event) {
-	if(lastDraggedPosition){
-		Meteor.figure.releaseDrag(lastDraggedPosition.x, lastDraggedPosition.y);
-	}
-};
-
-Meteor.TouchControllers = {
-	colorSelector: function () {
-		document.addEventListener("touchstart", colorSelectTouchHandler, false);
-		document.addEventListener("touchmove", colorSelectTouchHandler, false);
-		document.addEventListener("touchend", undefined, false);
-		document.addEventListener("touchcancel", undefined, false);
-	},
-	polygonDrawer: function () {
-		document.addEventListener("touchstart", polygonDragTouchHandler, false);
-		document.addEventListener("touchmove", polygonDragTouchHandler, false);
-		document.addEventListener("touchend", polygonReleaseDragHandler, false);
-		document.addEventListener("touchcancel", undefined, false);
-	},
-	noController: function () {
-		document.addEventListener("touchstart", undefined, false);
-		document.addEventListener("touchmove", undefined, false);
-		document.addEventListener("touchend", undefined, false);
-		document.addEventListener("touchcancel", undefined, false);
-	}
-};
-
-Template.paper.helpers({
-	hex: function () {
-		return Session.get("background");
-	}
-});
-
-Template.paper.events({
-	'mousemove .background': function (e,t) {
-
-		var x = e.offsetX;
-		var y = e.offsetY;
-
-		setBg(x, y);
-	}
-});
-
-Template.paper.rendered = function () {
-	// Meteor.TouchControllers.colorSelector();
-	// Meteor.TouchControllers.polygonDrawer();
-	var paper = Snap('.paper');
-
-	var _penTool = Meteor.Tool.PenTool(paper);
-	_penTool.activate();
-
-};
-
-var setBg = function(x, y){
+Meteor.Paper = {};
+Meteor.Paper.setBg = function(x, y){
 	Session.set("position", {x:x, y:y});
 
 	x /=  $(document).width();
@@ -136,11 +20,45 @@ var setBg = function(x, y){
 	Session.set("background", rgb);
 };
 
+Template.paper.helpers({
+	hex: function () {
+		return Session.get("background");
+	}
+});
+
+// Template.paper.events({
+// 	'mousemove .background': function (e,t) {
+
+// 		var x = e.offsetX;
+// 		var y = e.offsetY;
+
+// 		Meteor.Paper.setBg(x, y);
+// 	}
+// });
+
+Template.paper.rendered = function () {
+	// Meteor.TouchControllers.colorSelector();
+	// Meteor.TouchControllers.polygonDrawer();
+	var paper = Snap('.paper');
+
+	var _penTool = Meteor.Tool.PenTool(paper);
+	_penTool.activate();
+	// if(Meteor.Tool.ColorSelect){
+	// 	var _colorSelectTool = Meteor.Tool.ColorSelect(paper);
+	// 	_colorSelectTool.activate();
+	// 	console.log("hap")
+	// }
+
+};
+
+
+
 Meteor.startup(function () {
-	setBg(400, 400);
+	Meteor.Paper.setBg(400, 400);
 });
 
 var polygon = function (paper){
+
 	var nodes = [];
 	var lines = [];
 	var lastNode;
@@ -157,6 +75,17 @@ var polygon = function (paper){
 	};
 
 	// private
+	var windowHeight = function(){
+		return $(document).height();
+	};
+
+	var inputHeight = function(){
+		return $('.hex-input-container').height();
+	};
+
+	var navWidth = function () {
+		return $('.side-nav').width();
+	};
 	var pushNode = function (node) {
 		if(lastNode){
 			lastNode.attr('stroke','none');
@@ -231,7 +160,50 @@ var polygon = function (paper){
 		lastNode = undefined;
 	};
 
+	Meteor.figure;
+	var lastDraggedPosition;
+	function polygonDragTouchHandler(event) {
+	    event.preventDefault();
+	    var curX = event.targetTouches[0].pageX;
+	    var curY = event.targetTouches[0].pageY;
+
+	    var vh = windowHeight();
+
+	    if(curY < windowHeight() - inputHeight()){
+
+	    	if(Session.get("showNav")){
+	    		if(curX < navWidth()){
+					return true; // regular click when in nav
+	    		}else{
+	    			Session.set("showNav",false);
+	    		}
+	    	};
+
+	    	lastDraggedPosition = {x:curX, y:curY};
+
+	    	if(!Meteor.figure){
+	    		Meteor.figure = polygon(Snap('.background'));
+	    	};
+
+	    	Meteor.figure.dragLine(curX, curY);
+	    };
+	};
+
+	function polygonReleaseDragHandler(event) {
+		if(lastDraggedPosition){
+			Meteor.figure.releaseDrag(lastDraggedPosition.x, lastDraggedPosition.y);
+		}
+	};
+
+	var activate = function () {
+		document.addEventListener("touchstart", polygonDragTouchHandler, false);
+		document.addEventListener("touchmove", polygonDragTouchHandler, false);
+		document.addEventListener("touchend", polygonReleaseDragHandler, false);
+		document.addEventListener("touchcancel", undefined, false);	
+	};
+
 	return Object.freeze({
+		activate:activate,
 		addNode:addNode,
 		dragLine:dragLine,
 		releaseDrag:releaseDrag,
