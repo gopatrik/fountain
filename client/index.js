@@ -25,8 +25,6 @@ Template.hexField.events({
 	'keyup input[name=hex-field]': function (e,t) {
 		var value = $(e.target).val();
 
-
-		console.log(value.length);
 		if(value.length != 6 && value.length != 3){
 			return;
 		}
@@ -41,8 +39,8 @@ Template.hexField.events({
 
 
 Session.setDefault("menuItems", {
-	polygon:{checked:false, text:"Polygons", itemClass:"polygons-option"},
-	clear:{checked:false, text:"Clear", itemClass:"clear-option"}
+	pentool:{checked:false, icon:"fa-pencil", itemClass:"pentool-option"},
+	colorSelect:{checked:false, icon:"fa-eyedropper",itemClass:"color-select-option"}
 });
 
 Template.sideNav.events({
@@ -64,26 +62,47 @@ Template.menu.helpers({
 		_.each(m, function (a,b) {
 			menu.push(a);
 		});
-		console.log(menu)
+
 		return menu;
 	}
 });
 
 Template.menu.events({
-	'click .polygons-option':function (e) {
+	'click .pentool-option':function (e) {
 		var m = Session.get("menuItems");
+		// _.each(m, function (a,b) {
+		// 	if(a != m.pentool){
+		// 		a.
+		// 	}
+			
+		// });
 
-		m.polygon.checked = !m.polygon.checked;
+		m.pentool.checked = !m.pentool.checked;
+
+		if(m.pentool.checked){
+			Meteor.ToolBox.setTool(Meteor.ToolBox.tools.pentool);
+		}else{
+			Meteor.ToolBox.unsetTool();
+		}
+
 
 		Session.set("menuItems", m);
 
 	},
-	'click .clear-option':function (e) {
+	'click .color-select-option':function (e) {
 		var m = Session.get("menuItems");
+		m.colorSelect.checked = !m.colorSelect.checked;
+		
+		if(m.colorSelect.checked){
+			Meteor.ToolBox.setTool(Meteor.ToolBox.tools.colorSelector);
+		}else{
+			Meteor.ToolBox.unsetTool();
+		};
 
-		m.clear.checked = !m.clear.checked;
+		console.log("color")
 
-		Meteor.figure.clear();
+		Session.set("menuItems", m);
+
 
 	}
 });

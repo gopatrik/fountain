@@ -42,19 +42,16 @@ template(name="menu")
 				each menuItems
 					li.text-item(class=itemClass)
 						unless checked
-							i.fa.fa-square-o
+							i.fa(class=icon, style="color: rgba(255,255,255,0.5);")
 						else
-							i.fa.fa-check-square-o
-						span= text
+							i.fa(class=icon, style="color: rgba(255,255,255,0.9);")
 
 			ul.no-style-type.np(style="position:fixed; bottom:8vh;")
 				li.text-item
 					i.fa.fa-envelope
-					span Contact
 
 				li.text-item
 					i.fa.fa-twitter
-					span @gopatrik
 
 
 

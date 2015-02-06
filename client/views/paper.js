@@ -1,4 +1,28 @@
 Meteor.Paper = {};
+
+Meteor.startup(function () {
+	var paper = Snap('.paper');
+	Meteor.ToolBox = {
+		currentTool: undefined,
+		setTool: function  (tool) {
+			if(Meteor.ToolBox.currentTool){
+				Meteor.ToolBox.currentTool.deactivate();
+			};
+
+			Meteor.ToolBox.currentTool = tool;
+			tool.activate();
+		},
+		unsetTool: function () {
+			Meteor.ToolBox.currentTool.deactivate();
+			Meteor.ToolBox.currentTool = undefined;
+		},
+		tools: {
+			pentool: Meteor.Tool.PenTool(paper),
+			colorSelector: Meteor.Tool.ColorSelect(paper)
+		}
+	}
+});
+
 Meteor.Paper.setBg = function(x, y){
 	Session.set("position", {x:x, y:y});
 
@@ -26,29 +50,8 @@ Template.paper.helpers({
 	}
 });
 
-// Template.paper.events({
-// 	'mousemove .background': function (e,t) {
-
-// 		var x = e.offsetX;
-// 		var y = e.offsetY;
-
-// 		Meteor.Paper.setBg(x, y);
-// 	}
-// });
-
 Template.paper.rendered = function () {
-	// Meteor.TouchControllers.colorSelector();
-	// Meteor.TouchControllers.polygonDrawer();
-	var paper = Snap('.paper');
-
-	var _penTool = Meteor.Tool.PenTool(paper);
-	_penTool.activate();
-	// if(Meteor.Tool.ColorSelect){
-	// 	var _colorSelectTool = Meteor.Tool.ColorSelect(paper);
-	// 	_colorSelectTool.activate();
-	// 	console.log("hap")
-	// }
-
+	Meteor.ToolBox.setTool(Meteor.ToolBox.tools.colorSelector);
 };
 
 
