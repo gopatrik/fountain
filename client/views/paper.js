@@ -1,7 +1,7 @@
 Meteor.Paper = {};
 
 Meteor.startup(function () {
-	var paper = Snap('.paper');
+	Meteor.Paper.paper = Snap('.paper');
 	Meteor.ToolBox = {
 		currentTool: undefined,
 		setTool: function  (tool) {
@@ -19,8 +19,8 @@ Meteor.startup(function () {
 			};
 		},
 		tools: {
-			pentool: Meteor.Tool.PenTool(paper),
-			colorSelector: Meteor.Tool.ColorSelect(paper)
+			pentool: Meteor.Tool.PenTool(Meteor.Paper.paper),
+			colorSelector: Meteor.Tool.ColorSelect(Meteor.Paper.paper)
 		}
 	}
 });
@@ -53,7 +53,7 @@ Template.paper.helpers({
 });
 
 Template.paper.rendered = function () {
-	Meteor.ToolBox.setTool(Meteor.ToolBox.tools.colorSelector);
+	Meteor.ToolBox.setTool(Meteor.ToolBox.tools.pentool);
 };
 
 
